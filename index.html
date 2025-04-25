@@ -12,15 +12,35 @@
   
   <style>
     :root {
-      --primary: #2c3e50;
-      --secondary: #3498db;
-      --accent: #FFCC33;
-      --gmu-green: #006633;
+      --primary: #87CEEB;
+      --secondary: #00BFFF;
+      --accent: #87CEEB;
+      --gmu-green: #87CEEB;
       --dark: #1a1a1a;
       --light: #f8f9fa;
-      --gradient: linear-gradient(135deg, #006633, #FFCC33);
+      --gradient: linear-gradient(135deg, #87CEEB, #00BFFF);
       --section-bg-light: rgba(255,255,255,0.85);
       --section-bg-dark: rgba(249,249,249,0.85);
+      --bg-light: #f8f9fa;
+      --bg-dark: #1a1a1a;
+      --text-light: #ffffff;
+      --text-dark: #1a1a1a;
+    }
+    
+    html[data-theme="light"] body {
+      background: var(--bg-light);
+      color: var(--text-dark);
+    }
+    html[data-theme="dark"] body {
+      background: var(--bg-dark);
+      color: var(--text-light);
+    }
+    html[data-theme="dark"] .navbar {
+      background: rgba(26,26,26,0.95) !important;
+    }
+    html[data-theme="light"] .navbar {
+      background: rgba(255,255,255,0.8) !important;
+      color: var(--text-dark);
     }
     
     body {
@@ -32,6 +52,7 @@
 
     h1, h2, h3, h4, h5, h6 {
       font-family: 'Lora', serif;
+      color: var(--accent);
     }
     
     .gradient-header {
@@ -66,7 +87,7 @@
     .section-title {
       position: relative;
       padding-bottom: 15px;
-      color: var(--gmu-green);
+      color: var(--accent);
       text-align: center;
       margin-bottom: 3rem;
       font-size: 2.5rem;
@@ -159,25 +180,17 @@
     }
 
     .nav-link {
-      position: relative;
+      color: var(--primary) !important;
       padding: 0.5rem 1rem !important;
-      margin: 0 0.5rem;
+    }
+
+    .nav-link:hover {
+      color: var(--secondary) !important;
+      background: none !important;
     }
 
     .nav-link::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      width: 0;
-      height: 2px;
-      background: var(--accent);
-      transition: all 0.3s ease;
-      transform: translateX(-50%);
-    }
-
-    .nav-link:hover::after {
-      width: 100%;
+      display: none !important;
     }
 
     .btn-primary {
@@ -304,8 +317,118 @@
     }
 
     .gradient-header h1 {
-      color: var(--accent) !important;
-      text-shadow: 0 0 12px var(--accent);
+      text-shadow: none !important;
+      color: var(--primary) !important;
+    }
+
+    #about .section-title {
+      color: var(--primary) !important;
+      text-shadow: none !important;
+    }
+    .lead {
+      color: var(--primary) !important;
+      text-shadow: none !important;
+    }
+
+    .skill-card {
+      background: rgba(255,255,255,0.8);
+      border-radius: 15px;
+      padding: 2rem 1rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+      height: 100%;
+    }
+    .skill-card:hover {
+      transform: translateY(-5px);
+    }
+    .skill-card i {
+      font-size: 2.5rem;
+      color: var(--secondary);
+    }
+    .skill-card h5 {
+      margin-top: 1rem;
+      font-weight: 600;
+      color: var(--primary);
+    }
+    .skill-card p {
+      font-size: 0.9rem;
+      color: var(--dark);
+    }
+
+    /* Make About section stand out against background */
+    section#about {
+      background: rgba(255,255,255,0.9) !important;
+      padding: 4rem 2rem;
+      border-radius: 15px;
+      color: var(--dark);
+    }
+
+    .flip-card {
+      perspective: 1000px;
+      height: 100%;
+    }
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+    }
+    .flip-card:hover .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+    .flip-card-front,
+    .flip-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 15px;
+    }
+    .flip-card-front {
+      background: white;
+    }
+    .flip-card-back {
+      background: var(--light);
+      transform: rotateY(180deg);
+      padding: 1.5rem;
+    }
+    .flip-card-front i {
+      font-size: 3rem;
+      color: var(--secondary);
+      display: block;
+      margin-bottom: 1rem;
+    }
+    .flip-card {
+      height: 100%;
+    }
+    .flip-card-inner {
+      height: 100%;
+    }
+
+    /* Responsive typography */
+    h1.display-4 {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+    }
+    h2.section-title {
+      font-size: clamp(2rem, 5vw, 3rem);
+    }
+    p, .card-text, .lead {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+    }
+    /* Fluid section padding */
+    section {
+      padding: clamp(2rem, 5vw, 4rem) clamp(1rem, 4vw, 2rem);
+    }
+
+    /* Remove underline highlight from section titles */
+    .section-title::after {
+      display: none !important;
+    }
+    /* Make all titles use the same sky blue color */
+    h1.display-4,
+    .section-title {
+      color: var(--primary) !important;
     }
   </style>
 </head>
@@ -327,6 +450,7 @@
           <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
         </ul>
       </div>
+      <button id="theme-toggle" class="btn btn-sm text-white ms-3">🌙</button>
     </div>
   </nav>
 
@@ -377,6 +501,7 @@
               <h4 class="card-title">Speech Quality Assessment and Control in Indian Languages</h4>
               <p class="card-text"><strong>Authors:</strong> Manasa, A., Jaswanth, R., Sai, C.N., Reddy, Y.S.P., Gangashetty, S.V., Govind, D.</p>
               <p class="card-text">A conference paper exploring techniques from signal processing, linguistics, and cognitive psychology to evaluate and enhance speech quality in diverse Indian languages.</p>
+              <a href="http://www.scopus.com/inward/record.url?eid=2-s2.0-85163488485&partnerID=MN8TOARS" target="_blank" rel="noopener noreferrer" class="btn btn-outline-primary mt-3">Read Article</a>
             </div>
           </div>
         </div>
@@ -387,6 +512,7 @@
               <h4 class="card-title">Enhancing Hairfall Prediction: A Comparative Analysis of Individual Algorithms and An Ensemble Method</h4>
               <p class="card-text"><strong>Authors:</strong> Sai, C.N.V., Archana, E., Vivek, B., Dhanwanth, B., Viknesh, K.S.</p>
               <p class="card-text">An open access article proposing an ensemble machine learning approach that improves hair fall prediction accuracy by leveraging the strengths of multiple algorithms.</p>
+              <a href="http://www.scopus.com/inward/record.url?eid=2-s2.0-85167356361&partnerID=MN8TOARS" target="_blank" rel="noopener noreferrer" class="btn btn-outline-primary mt-3">Read Article</a>
             </div>
           </div>
         </div>
@@ -397,6 +523,7 @@
               <h4 class="card-title">Assessing the Effectiveness of Artificial Intelligence Techniques in Mitigating Cyber Security Risks</h4>
               <p class="card-text"><strong>Authors:</strong> Sai, C.N.V., Jaswanth, R., Manasa, A., Reddy, Y.S.P., Gangashetty, S.V., Govind, D.</p>
               <p class="card-text">An article examining the role of machine learning in reducing cyber security threats by leveraging modern AI techniques and data analysis methods.</p>
+              <a href="http://www.scopus.com/inward/record.url?eid=2-s2.0-85174807240&partnerID=MN8TOARS" target="_blank" rel="noopener noreferrer" class="btn btn-outline-primary mt-3">Read Article</a>
             </div>
           </div>
         </div>
@@ -407,6 +534,7 @@
               <h4 class="card-title">A Novel Strategy for Streamlining Land Registration using Ethereum Blockchain</h4>
               <p class="card-text"><strong>Authors:</strong> Subedha, V., Vivek, B., Sai, C.N.V., Vadana, A.S., Dhanwanth, B.</p>
               <p class="card-text">An article outlining a blockchain-based solution that simplifies land registration processes by leveraging Ethereum and smart contracts to increase transparency and efficiency.</p>
+              <a href="http://www.scopus.com/inward/record.url?eid=2-s2.0-85174820026&partnerID=MN8TOARS" target="_blank" rel="noopener noreferrer" class="btn btn-outline-primary mt-3">Read Article</a>
             </div>
           </div>
         </div>
@@ -417,6 +545,7 @@
               <h4 class="card-title">Comparative Analysis of Psychological Stress Detection: A Study of Artificial Neural Networks and Cat Boost Algorithm</h4>
               <p class="card-text"><strong>Authors:</strong> Jayanthi, G., Archana, E., Saravanan, R., Swaminathan, A., Sai, C.N.</p>
               <p class="card-text">An article that evaluates various machine learning techniques for detecting psychological stress from online content, emphasizing early detection for effective intervention.</p>
+              <a href="http://www.scopus.com/inward/record.url?eid=2-s2.0-85182459578&partnerID=MN8TOARS" target="_blank" rel="noopener noreferrer" class="btn btn-outline-primary mt-3">Read Article</a>
             </div>
           </div>
         </div>
@@ -427,78 +556,119 @@
   <!-- Projects Section -->
   <section id="projects" class="container py-5">
     <h2 class="section-title" data-aos="fade-right">Projects</h2>
-    <div class="row">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
       <!-- Project 1 -->
-      <div class="col-md-6 mb-4" data-aos="zoom-in">
-        <div class="project-card p-4 h-100">
-          <h4>Containerizing Microservices</h4>
-          <p>A microservices application built with Spring Boot, RESTful Web Services, JPA/Hibernate, and Docker, deployed on Kubernetes with a CI/CD pipeline.</p>
-          <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#project1">View Details</button>
+      <div class="col" data-aos="zoom-in">
+        <div class="card project-card h-100 text-center">
+          <div class="card-body d-flex flex-column justify-content-between h-100">
+            <i class="fas fa-project-diagram fa-2x mb-3" style="color: var(--accent);"></i>
+            <h5 class="card-title">Containerizing Microservices</h5>
+            <p class="card-text">A microservices application built with Spring Boot, RESTful Web Services, JPA/Hibernate, and Docker, deployed on Kubernetes with a CI/CD pipeline.</p>
+            <button class="btn btn-outline-primary mt-3 align-self-center" data-bs-toggle="modal" data-bs-target="#project1">View Details</button>
+          </div>
         </div>
       </div>
       <!-- Project 2 -->
-      <div class="col-md-6 mb-4" data-aos="zoom-in">
-        <div class="project-card p-4 h-100">
-          <h4>Containerized Web Application</h4>
-          <p>Developed a Dockerized web application deployed on Kubernetes, integrated with a CI/CD pipeline using GitHub and Jenkins for automated builds and deployments.</p>
-          <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#project2">View Details</button>
+      <div class="col" data-aos="zoom-in">
+        <div class="card project-card h-100 text-center">
+          <div class="card-body d-flex flex-column justify-content-between h-100">
+            <i class="fas fa-globe fa-2x mb-3" style="color: var(--accent);"></i>
+            <h5 class="card-title">Containerized Web Application</h5>
+            <p class="card-text">Developed a Dockerized web application deployed on Kubernetes, integrated with a CI/CD pipeline using GitHub and Jenkins for automated builds and deployments.</p>
+            <button class="btn btn-outline-primary mt-3 align-self-center" data-bs-toggle="modal" data-bs-target="#project2">View Details</button>
+          </div>
         </div>
       </div>
       <!-- Project 3 -->
-      <div class="col-md-6 mb-4" data-aos="zoom-in">
-        <div class="project-card p-4 h-100">
-          <h4>Homepage & Student Survey Form</h4>
-          <p>Created a personal homepage and a student survey form hosted on AWS S3 and EC2, showcasing responsive design using HTML, CSS, and W3.CSS templates.</p>
-          <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#project3">View Details</button>
+      <div class="col" data-aos="zoom-in">
+        <div class="card project-card h-100 text-center">
+          <div class="card-body d-flex flex-column justify-content-between h-100">
+            <i class="fas fa-file-alt fa-2x mb-3" style="color: var(--accent);"></i>
+            <h5 class="card-title">Homepage & Student Survey Form</h5>
+            <p class="card-text">Created a personal homepage and a student survey form hosted on AWS S3 and EC2, showcasing responsive design using HTML, CSS, and W3.CSS templates.</p>
+            <button class="btn btn-outline-primary mt-3 align-self-center" data-bs-toggle="modal" data-bs-target="#project3">View Details</button>
+          </div>
         </div>
       </div>
       <!-- Project 4 -->
-      <div class="col-md-6 mb-4" data-aos="zoom-in">
-        <div class="project-card p-4 h-100">
-          <h4>Vue.js Re-implementation</h4>
-          <p>Re-developed a previous assignment using Vue.js for the frontend along with RESTful Web Services and JPA to enhance the user interface and experience.</p>
-          <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#project4">View Details</button>
+      <div class="col" data-aos="zoom-in">
+        <div class="card project-card h-100 text-center">
+          <div class="card-body d-flex flex-column justify-content-between h-100">
+            <i class="fab fa-vuejs fa-2x mb-3" style="color: var(--accent);"></i>
+            <h5 class="card-title">Vue.js Re-implementation</h5>
+            <p class="card-text">Re-developed a previous assignment using Vue.js for the frontend along with RESTful Web Services and JPA to enhance the user interface and experience.</p>
+            <button class="btn btn-outline-primary mt-3 align-self-center" data-bs-toggle="modal" data-bs-target="#project4">View Details</button>
+          </div>
         </div>
       </div>
       <!-- Project 5 -->
-      <div class="col-md-6 mb-4" data-aos="zoom-in">
-        <div class="project-card p-4 h-100">
-          <h4>CS Department & Survey Website</h4>
-          <p>Designed and deployed a departmental website with a student survey form using HTML5, CSS, and Bootstrap, hosted on AWS S3 and EC2.</p>
-          <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#project5">View Details</button>
+      <div class="col" data-aos="zoom-in">
+        <div class="card project-card h-100 text-center">
+          <div class="card-body d-flex flex-column justify-content-between h-100">
+            <i class="fas fa-cloud fa-2x mb-3" style="color: var(--accent);"></i>
+            <h5 class="card-title">CS Department & Survey Website</h5>
+            <p class="card-text">Designed and deployed a departmental website with a student survey form using HTML5, CSS, and Bootstrap, hosted on AWS S3 and EC2.</p>
+            <button class="btn btn-outline-primary mt-3 align-self-center" data-bs-toggle="modal" data-bs-target="#project5">View Details</button>
+          </div>
         </div>
       </div>
       <!-- Project 6 -->
-      <div class="col-md-6 mb-4" data-aos="zoom-in">
-        <div class="project-card p-4 h-100">
-          <h4>Enhanced Survey Form with JavaScript & Ajax</h4>
-          <p>Improved a survey form using JavaScript, Bootstrap, and Ajax for dynamic computation of data (average and maximum) and real-time field validation.</p>
-          <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#project6">View Details</button>
+      <div class="col" data-aos="zoom-in">
+        <div class="card project-card h-100 text-center">
+          <div class="card-body d-flex flex-column justify-content-between h-100">
+            <i class="fas fa-code fa-2x mb-3" style="color: var(--accent);"></i>
+            <h5 class="card-title">Enhanced Survey Form with JS & Ajax</h5>
+            <p class="card-text">Improved a survey form using JavaScript, Bootstrap, and Ajax for dynamic computation of data (average and maximum) and real-time field validation.</p>
+            <button class="btn btn-outline-primary mt-3 align-self-center" data-bs-toggle="modal" data-bs-target="#project6">View Details</button>
+          </div>
         </div>
       </div>
       <!-- Project 7 -->
-      <div class="col-md-6 mb-4" data-aos="zoom-in">
-        <div class="project-card p-4 h-100">
-          <h4>Full-Stack Survey Application</h4>
-          <p>Developed a full-stack application using Angular for the frontend and Spring Boot with JPA/Hibernate for the backend, implementing complete CRUD operations for managing student surveys.</p>
-          <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#project7">View Details</button>
+      <div class="col" data-aos="zoom-in">
+        <div class="card project-card h-100 text-center">
+          <div class="card-body d-flex flex-column justify-content-between h-100">
+            <i class="fas fa-cubes fa-2x mb-3" style="color: var(--accent);"></i>
+            <h5 class="card-title">Full-Stack Survey Application</h5>
+            <p class="card-text">Developed a full-stack application using Angular for the frontend and Spring Boot with JPA/Hibernate for the backend, implementing complete CRUD operations for managing student surveys.</p>
+            <button class="btn btn-outline-primary mt-3 align-self-center" data-bs-toggle="modal" data-bs-target="#project7">View Details</button>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Soft Skills Section -->
-  <section id="skills" class="bg-light py-5">
+  <section id="skills" class="py-5">
     <div class="container">
       <h2 class="section-title" data-aos="fade-right">Soft Skills & Experience</h2>
-      <div class="row">
-        <div class="col-md-12" data-aos="fade-up">
-          <ul class="list-unstyled">
-            <li><strong>Event Technician:</strong> Successfully organized and managed large-scale events for over 500 clients, ensuring smooth operations and high client satisfaction.</li>
-            <li><strong>Stage Hand at Monumental Sports Eagle Bank Arnea:</strong> Collaborated with teams ranging from 10 to 50 individuals to execute stage setups and event logistics effectively.</li>
-            <li><strong>Team Leadership & Collaboration:</strong> Demonstrated ability to lead projects and work collaboratively in diverse team environments.</li>
-            <li><strong>Adaptability & Problem-Solving:</strong> Proven capacity to adapt to dynamic situations and resolve complex challenges efficiently.</li>
-          </ul>
+      <div class="row g-4 justify-content-center align-items-stretch">
+        <div class="col-sm-6 col-lg-3" data-aos="zoom-in">
+          <div class="skill-card text-center">
+            <i class="fas fa-users"></i>
+            <h5>Event Technician</h5>
+            <p>Organized & managed large-scale events for 500+ clients ensuring smooth operations and high satisfaction.</p>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-3" data-aos="zoom-in">
+          <div class="skill-card text-center">
+            <i class="fas fa-cogs"></i>
+            <h5>Stage Hand</h5>
+            <p>Collaborated with teams of 10–50 at Monumental Sports Eagle Bank Arena to execute event logistics seamlessly.</p>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-3" data-aos="zoom-in">
+          <div class="skill-card text-center">
+            <i class="fas fa-users-cog"></i>
+            <h5>Team Leadership</h5>
+            <p>Demonstrated ability to lead projects and coordinate diverse teams towards successful outcomes.</p>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-3" data-aos="zoom-in">
+          <div class="skill-card text-center">
+            <i class="fas fa-lightbulb"></i>
+            <h5>Adaptability & Problem-Solving</h5>
+            <p>Adapted to dynamic situations and resolved complex challenges efficiently under pressure.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -529,100 +699,114 @@
   </section>
 
   <!-- Project Detail Modals -->
-  <!-- Modal for Project 1 -->
   <div class="modal fade" id="project1" tabindex="-1" aria-labelledby="project1Label" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="project1Label">Containerizing Microservices</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <p>This project involved developing a microservices-based application using Spring Boot, RESTful Web Services, and JPA/Hibernate. The application implemented CRUD operations for managing student survey data, containerized using Docker, and deployed on a Kubernetes cluster with an automated CI/CD pipeline.</p>
+          A microservices application built with Spring Boot, RESTful Web Services, JPA/Hibernate, and Docker, deployed on Kubernetes with a CI/CD pipeline.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
   </div>
-  <!-- Modal for Project 2 -->
   <div class="modal fade" id="project2" tabindex="-1" aria-labelledby="project2Label" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="project2Label">Containerized Web Application</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <p>This assignment required containerizing a web application using Docker and deploying it on Kubernetes. A CI/CD pipeline was established using GitHub and Jenkins for automated builds and deployments, ensuring scalability and resiliency.</p>
+          Developed a Dockerized web application deployed on Kubernetes, integrated with a CI/CD pipeline using GitHub and Jenkins for automated builds and deployments.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
   </div>
-  <!-- Modal for Project 3 -->
   <div class="modal fade" id="project3" tabindex="-1" aria-labelledby="project3Label" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="project3Label">Homepage & Student Survey Form</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <p>This project involved creating a personal homepage and a student survey form using HTML, CSS, and responsive design techniques. The homepage was hosted on AWS S3 while the survey form was deployed on an AWS EC2 instance.</p>
+          Created a personal homepage and a student survey form hosted on AWS S3 and EC2, showcasing responsive design using HTML, CSS, and W3.CSS templates.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
   </div>
-  <!-- Modal for Project 4 -->
   <div class="modal fade" id="project4" tabindex="-1" aria-labelledby="project4Label" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="project4Label">Vue.js Re-implementation</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <p>This project re-implemented a previous assignment using Vue.js for the frontend along with RESTful Web Services and JPA for the backend. The focus was on enhancing the user interface and overall experience while maintaining core functionality.</p>
+          Re-developed a previous assignment using Vue.js for the frontend along with RESTful Web Services and JPA to enhance the user interface and experience.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
   </div>
-  <!-- Modal for Project 5 -->
   <div class="modal fade" id="project5" tabindex="-1" aria-labelledby="project5Label" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="project5Label">CS Department & Survey Website</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <p>This project involved designing and deploying a website for the Computer Science Department that included information pages and a student survey form. The website was built using HTML5, CSS, and Bootstrap and hosted on AWS S3 and EC2.</p>
+          Designed and deployed a departmental website with a student survey form using HTML5, CSS, and Bootstrap, hosted on AWS S3 and EC2.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
   </div>
-  <!-- Modal for Project 6 -->
   <div class="modal fade" id="project6" tabindex="-1" aria-labelledby="project6Label" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="project6Label">Enhanced Survey Form with JavaScript & Ajax</h5>
+          <h5 class="modal-title" id="project6Label">Enhanced Survey Form with JS & Ajax</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <p>This project enhanced an existing student survey form by incorporating JavaScript, Bootstrap, Ajax, and JSON. Features included dynamic computation of average and maximum values, real-time validation, and automatic population of fields based on user input.</p>
+          Improved a survey form using JavaScript, Bootstrap, and Ajax for dynamic computation of data (average and maximum) and real-time field validation.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
   </div>
-  <!-- Modal for Project 7 -->
   <div class="modal fade" id="project7" tabindex="-1" aria-labelledby="project7Label" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="project7Label">Full-Stack Survey Application</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <p>This full-stack application was developed using Angular for the frontend and Spring Boot with JPA/Hibernate for the backend. It implemented complete CRUD functionality for managing student surveys and interfaced with a MySQL database.</p>
+          Developed a full-stack application using Angular for the frontend and Spring Boot with JPA/Hibernate for the backend, implementing complete CRUD operations for managing student surveys.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
@@ -707,15 +891,44 @@
       const scrolled = window.pageYOffset;
       header.style.backgroundPositionY = -(scrolled * 0.5) + 'px';
     });
+
+    // Theme toggle
+    const toggle = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+    // Initialize to light mode by default
+    root.setAttribute('data-theme', 'light');
+    // Set initial toggle icon for switching to dark mode
+    toggle.textContent = '🌙';
+    // Ensure body uses correct background and text color on load
+    document.body.style.backgroundColor = getComputedStyle(root).getPropertyValue('--bg-light');
+    document.body.style.color = getComputedStyle(root).getPropertyValue('--text-dark');
+
+    toggle.addEventListener('click', () => {
+      const current = root.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      toggle.textContent = next === 'dark' ? '🌙' : '☀️';
+      // Update body background and text color dynamically
+      document.body.style.backgroundColor = getComputedStyle(root).getPropertyValue(next === 'dark' ? '--bg-dark' : '--bg-light');
+      document.body.style.color = getComputedStyle(root).getPropertyValue(next === 'dark' ? '--text-light' : '--text-dark');
+      // Update Vanta background color if it's initialized
+      if (typeof vantaEffect !== 'undefined') {
+        vantaEffect.setOptions({
+          backgroundColor: next === 'dark' ? 0x121212 : 0xf8f9fa
+        });
+      }
+    });
   </script>
   <!-- Three.js and Vanta.NET AI network background -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vanta/0.5.21/vanta.net.min.js"></script>
   <script>
-    VANTA.NET({
+    // Initialize Vanta into a variable for dynamic theme updates
+    let vantaEffect = VANTA.NET({
       el: "#vanta-bg",
       color: 0x006633,
-      backgroundColor: 0x121212,
+      // Use light background by default
+      backgroundColor: 0xf8f9fa,
       points: 10.00,
       maxDistance: 20.00,
       spacing: 18.00,
